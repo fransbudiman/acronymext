@@ -1,3 +1,8 @@
+
+function openOverlay(){
+    chrome.runtime.sendMessage({action: "openOverlay"});
+}
+
 chrome.runtime.onInstalled.addListener(function() {
     chrome.contextMenus.create({
         id: "openAcroX",
@@ -6,7 +11,6 @@ chrome.runtime.onInstalled.addListener(function() {
     });
 });
 
-
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     // check if item clicked is our context menu and check if the selected text is not empty
     if (info.menuItemId === "openAcroX" && info.selectionText) {
@@ -14,9 +18,10 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
             // run script in the context of the current tab
             target: {tabId: tab.id},
             func: (selectedText) => {
-                alert(selectedText);
+                chrome.runtime.sendMessage({ action: "openOverlay" });
             },
             args: [info.selectionText]
         })
     }
 });
+

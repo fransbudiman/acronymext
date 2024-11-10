@@ -7,6 +7,16 @@
     "default_popup": "hello.html",
     "default_icon": "hello_extensions.png"
   },
-  "permissions": ["contextMenus", "activeTab", "scripting"]
+  "permissions": ["contextMenus", "activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["overlay.css"]
+    }
+  ]
 
 }
